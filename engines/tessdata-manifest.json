@@ -1,0 +1,14 @@
+{
+  "repository": "https://github.com/tesseract-ocr/tessdata_fast",
+  "revision": "87416418657359cb625c412a48b6e1d6d41c29bd",
+  "files": [
+    {
+      "Path": "C:\\Additional\\REA\\dropform\\engines\\tessdata\\eng.traineddata",
+      "Hash": "7D4322BD2A7749724879683FC3912CB542F19906C83BCC1A52132556427170B2"
+    },
+    {
+      "Path": "C:\\Additional\\REA\\dropform\\engines\\tessdata\\ind.traineddata",
+      "Hash": "69786901DA87AB8766C1EA7FBB10B28F2110C14DA3F6C8F2735DF131FBA95D88"
+    }
+  ]
+}

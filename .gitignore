@@ -1,0 +1,21 @@
+/target/
+/tools/
+/dist/
+/.tools/
+/.engine-cache/
+/1
+*.exe
+*.log
+__pycache__/
+*.py[cod]
+.DS_Store
+Thumbs.db
+/engines/tessdata/*.traineddata
+
+# Publish reproducible checks, not local outputs, configs, or fixture downloads.
+/qa/*
+!/qa/smoke.py
+!/qa/extended.py
+!/qa/layout_fixture.py
+!/qa/README.md
+!/qa/requirements.txt
