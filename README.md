@@ -107,4 +107,4 @@ Dropflip's project-authored source is [MIT licensed](LICENSE). The reflected ico
 
 Conversion engines and dependencies keep their own licenses, including GPL/AGPL/MPL components. The MIT source license does not relicense those components. See [THIRD_PARTY.md](THIRD_PARTY.md) before distributing a runtime bundle.
 
-<sub>***This app was made with the help of AI, and I understand if that makes you cautious. It won't be abandoned: I'll keep releasing periodic updates and fixing bugs. If you find an issue, please [report it](https://github.com/AlthafTM/dropflip/issues).***</sub>
+<sub>***Made with AI assistance, but still maintained with periodic updates. Found a bug? [Report it](https://github.com/AlthafTM/dropflip/issues).***</sub>
