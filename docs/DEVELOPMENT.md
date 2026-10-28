@@ -118,4 +118,4 @@ The UI has no browser runtime. It paints a cached nine-slice shell and cached gl
 
 ## Distribution
 
-This source import is not a runtime installer. A usable portable build needs the engines required by its advertised formats and their supporting files. Preserve their notices and satisfy their redistribution/source obligations; see [THIRD_PARTY.md](../THIRD_PARTY.md). The MIT license for Dropflip's own source does not replace those licenses.
+The [release workflow](RELEASING.md) packages the native app as a portable ZIP and an optional per-user installer. Both exclude external engines. A full conversion installation needs the engines required by its advertised formats and their supporting files. Preserve their notices and satisfy their redistribution/source obligations; see [THIRD_PARTY.md](../THIRD_PARTY.md). The MIT license for Dropflip's own source does not replace those licenses.

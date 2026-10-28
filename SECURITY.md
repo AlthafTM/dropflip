@@ -2,7 +2,7 @@
 
 ## Supported version
 
-Security fixes target the current `main` branch. Dropflip is a source preview; there is no automatic updater. Rebuild the application and its PDF/image helper after updating their sources or dependencies.
+Security fixes target the current `main` branch and latest release. There is no automatic updater. Update the portable app or rerun the newer installer. Rebuild the PDF/image helper after updating its sources or dependencies.
 
 ## Report a vulnerability
 
@@ -18,3 +18,7 @@ Use [GitHub's private vulnerability reporting](https://github.com/AlthafTM/dropf
 - `DROPFORM_TOOLS`, `PATH`, configuration overrides and the installed tools directory are trusted operator configuration. Do not point them at an untrusted directory or run Dropflip as administrator.
 
 Dependency alerts, CodeQL and the dependency-audit workflow supplement source review. A passing check does not establish a numerical security score or guarantee the absence of vulnerabilities.
+
+## Downloads and installation
+
+Use this repository's GitHub releases. The portable ZIP and per-user installer contain the same native app; external engines are excluded. Release builds use locked dependencies, pinned Actions, a checksum-verified installer compiler, SHA-256 asset checksums and GitHub build provenance. Current binaries are unsigned. Do not disable OS security protections to run them. The installer does not require administrator rights, and uninstall does not erase converted files or app preferences. See [release details](docs/RELEASING.md).

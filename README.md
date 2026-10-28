@@ -13,13 +13,25 @@
 
 Dropflip is a Windows desktop converter with a native Rust interface. Drag a file toward a drop area, choose a compatible output format, and confirm. It saves the result to Downloads or your chosen folder.
 
-[Build from source](docs/DEVELOPMENT.md) · [Conversion behavior](CONVERSIONS.md) · [Tests](qa/README.md)
+[Download for Windows](https://github.com/AlthafTM/dropflip/releases/latest) · [Build from source](docs/DEVELOPMENT.md) · [Conversion behavior](CONVERSIONS.md)
 
 Security boundaries and private reporting: [SECURITY.md](SECURITY.md).
 
 ## Current status
 
-This repository contains the source and build scripts. The Windows build has been tested locally; this source import does not include an installer or a bundled release download. Conversion engines are installed separately.
+Windows x64 preview. The compact downloads contain the native Rust application; external conversion engines are installed separately. Native image, data and spreadsheet conversions work directly. PDF-to-Word/OCR, audio/video and Office routes need their corresponding engines; see [engine setup](docs/DEVELOPMENT.md#install-conversion-engines).
+
+## Download and run
+
+1. Open the [latest release](https://github.com/AlthafTM/dropflip/releases/latest).
+2. Under **Assets**, download `Dropflip-v<version>-windows-x64.zip`. Choose this ZIP rather than GitHub's **Source code** download.
+3. Right-click the ZIP, choose **Extract All**, then open `Dropflip.exe` inside the extracted folder. Keep the folder together. No installer or administrator rights are needed.
+
+**An installer is also available:** download `Dropflip-v<version>-windows-x64-setup.exe` from the same release. It installs for your Windows account and offers desktop/startup shortcuts and an uninstaller. Both downloads contain the same native app and have the same engine requirements.
+
+The binaries are currently unsigned. Before running either download, compare `Get-FileHash .\<downloaded-file> -Algorithm SHA256` with the matching entry in the release's `SHA256SUMS.txt`. GitHub build attestations are also attached to the release artifacts. Do not disable Windows security checks.
+
+To update a portable copy, exit Dropflip through its tray menu and extract the new ZIP into a new folder. For an installed copy, run the newer installer. There is no automatic updater.
 
 ## How to use it
 
@@ -74,7 +86,7 @@ Read [the conversion matrix](CONVERSIONS.md) for the exact preservation rules an
 - Destination formats have their own limits. CSV/TSV omit formulas and formatting, GIF has a limited palette, and lossy image/audio/video formats introduce generation loss.
 - The quality percentage is not an exact file-size reduction target. Some files cannot be made smaller without discarding information.
 - Jobs run one at a time. Multiple dropped files require individual confirmation; folders and archive extraction are not supported.
-- Exclusive fullscreen games have not been validated. The app has no auto-updater, and this repository currently provides a source build rather than an installer.
+- Exclusive fullscreen games have not been validated. Downloads are unsigned, and there is no auto-updater.
 - Documents that require external file/URL assets can fail under resource restrictions. Embedded document assets remain supported. PDF/SVG raster exports and full-page OCR reject oversized pages before rendering; see [SECURITY.md](SECURITY.md).
 
 ## Build and run
