@@ -106,3 +106,5 @@ These results cover the test corpus, not every codec or document feature. [QA in
 Dropflip's project-authored source is [MIT licensed](LICENSE). The reflected icon frame adapts [Dictately](https://github.com/AlthafTM/dictately); its MIT notice is retained in [assets/DICTATELY-LICENSE.txt](assets/DICTATELY-LICENSE.txt).
 
 Conversion engines and dependencies keep their own licenses, including GPL/AGPL/MPL components. The MIT source license does not relicense those components. See [THIRD_PARTY.md](THIRD_PARTY.md) before distributing a runtime bundle.
+
+<sub>***This app was made with the help of AI and will continue to receive periodic updates. If you use it and find a bug, please [report it](https://github.com/AlthafTM/dropflip/issues) so I can fix it.***</sub>
