@@ -4,7 +4,7 @@ User direction: invisible while idle; configurable drop area, default bottom lef
 
 ENERGY 1 / RHYTHM 2 / MOTION 2.
 
-App identity: Dropflip. The desktop icon follows Dictately's reflected black-glass tile and monochrome rim, with two new rounded circular conversion arrows in place of its waveform. The tray uses only the white arrows for small-size legibility. The EXE, window and shortcuts share this identity.
+App identity: Dropflip. The desktop icon follows Dictately's reflected black-glass tile and monochrome rim, with two circular conversion arrows in place of its waveform. Solid triangular arrowheads give each thick curved shaft a clear direction at small sizes. The tray uses only the white arrows for small-size legibility. The EXE, window and shortcuts share this identity.
 
 - The current direction is a cleaner dark utility with an actual light glow rather than a gradient wash. The body remains 97% opaque, with a nearly flat graphite fill and a quieter rim. A thin white source at the corner edges has two Gaussian bloom layers that now reach farther inward. The 420 × 330 footprint along the edges stays unchanged. Custom positions anchor the same light treatment to the chosen area.
 - Segoe UI Semibold gives headings, filenames, format choices and primary actions a softer weight than the earlier bold display font. Segoe UI Regular lightens supporting text. Both are loaded from Windows with fallback fonts; no font files are downloaded or redistributed.

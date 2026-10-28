@@ -15,6 +15,8 @@ Dropflip is a Windows desktop converter with a native Rust interface. Drag a fil
 
 [Build from source](docs/DEVELOPMENT.md) · [Conversion behavior](CONVERSIONS.md) · [Tests](qa/README.md)
 
+Security boundaries and private reporting: [SECURITY.md](SECURITY.md).
+
 ## Current status
 
 This repository contains the source and build scripts. The Windows build has been tested locally; this source import does not include an installer or a bundled release download. Conversion engines are installed separately.
@@ -73,7 +75,7 @@ Read [the conversion matrix](CONVERSIONS.md) for the exact preservation rules an
 - The quality percentage is not an exact file-size reduction target. Some files cannot be made smaller without discarding information.
 - Jobs run one at a time. Multiple dropped files require individual confirmation; folders and archive extraction are not supported.
 - Exclusive fullscreen games have not been validated. The app has no auto-updater, and this repository currently provides a source build rather than an installer.
-- Documents with externally linked assets may need those resources to remain available.
+- Documents that require external file/URL assets can fail under resource restrictions. Embedded document assets remain supported. PDF/SVG raster exports and full-page OCR reject oversized pages before rendering; see [SECURITY.md](SECURITY.md).
 
 ## Build and run
 

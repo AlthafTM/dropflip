@@ -1,5 +1,7 @@
 # Conversion checks
 
+`python qa/security.py` exercises resource rejection, embedded-image preservation, a rooted Typst PDF step, oversized PDF/SVG rejection and failed-output cleanup through the real CLI. It starts a loopback HTTP fixture and verifies that blocked document references make no requests. Run with the helper build dependencies installed and the newly built application and helper in place.
+
 The development Windows build passed 105 real-output conversion checks and 11 Rust tests. The corpus checks decoded content and structure, not just output existence. Results are local evidence, not a guarantee for every codec or document.
 
 ## Rust checks

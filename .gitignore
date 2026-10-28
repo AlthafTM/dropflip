@@ -19,3 +19,4 @@ Thumbs.db
 !/qa/layout_fixture.py
 !/qa/README.md
 !/qa/requirements.txt
+!/qa/security.py

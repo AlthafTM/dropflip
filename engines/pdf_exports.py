@@ -1,9 +1,22 @@
 """Page-complete exports and image routes using the existing packaged runtime."""
 import json
+import math
 from io import BytesIO
 from pathlib import Path
 import sys
 import zipfile
+
+MAX_RASTER_PIXELS = 32_000_000
+MAX_RASTER_EDGE = 16_384
+
+
+def check_raster_size(page, dpi=72):
+    width, height = page.rect.width, page.rect.height
+    if not all(math.isfinite(value) and value > 0 for value in (width, height, dpi)):
+        raise ValueError('Invalid page dimensions.')
+    width, height = math.ceil(width * dpi / 72), math.ceil(height * dpi / 72)
+    if max(width, height) > MAX_RASTER_EDGE or width * height > MAX_RASTER_PIXELS:
+        raise ValueError('Page is too large to render safely (32 million pixels maximum).')
 
 
 def progress(index, total):
@@ -32,6 +45,7 @@ def convert(source, output, quality):
                 if suffix == '.pdf':
                     target.write_bytes(vector.convert_to_pdf())
                     return
+                check_raster_size(vector[0])
                 pixmap = vector[0].get_pixmap(alpha=True)
                 image = Image.open(BytesIO(pixmap.tobytes('png')))
                 write_image(image, target, quality)
@@ -85,6 +99,7 @@ def convert(source, output, quality):
                 for index, page in enumerate(document):
                     text = page.get_text('text', sort=True)
                     if not text.strip() and page.get_images():
+                        check_raster_size(page, 200)
                         textpage = page.get_textpage_ocr(language='eng+ind', dpi=200, full=True, tessdata=str(root))
                         text = page.get_text('text', textpage=textpage, sort=True)
                     nonempty = nonempty or bool(text.strip())
@@ -123,6 +138,7 @@ def convert(source, output, quality):
                 if ext == 'svg':
                     data = page.get_svg_image(text_as_path=True).encode('utf-8')
                 else:
+                    check_raster_size(page, 180)
                     pix = page.get_pixmap(dpi=180, alpha=ext == 'png', colorspace=pymupdf.csRGB)
                     data = pix.tobytes('jpeg', jpg_quality=quality) if ext == 'jpg' else pix.tobytes('png')
                 if archive:

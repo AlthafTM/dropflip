@@ -33,10 +33,6 @@ glyph = Image.new('L', (size, size))
 draw = ImageDraw.Draw(glyph)
 radius, thickness = 284, 86
 point = lambda angle: (512+radius*math.cos(math.radians(angle)), 512+radius*math.sin(math.radians(angle)))
-def stroke(points, width):
-    draw.line(points, fill=255, width=width, joint='curve')
-    for x, y in (points[0], points[-1]):
-        draw.ellipse((x-width/2, y-width/2, x+width/2, y+width/2), fill=255)
 for start in (210, 30):
     end = start+138
     edge = radius+thickness/2
@@ -47,9 +43,9 @@ for start in (210, 30):
     angle = math.radians(end)
     tangent = (-math.sin(angle), math.cos(angle))
     radial = (math.cos(angle), math.sin(angle))
-    tip = (x+12*tangent[0], y+12*tangent[1])
-    shoulders = [(tip[0]-90*tangent[0]+side*64*radial[0], tip[1]-90*tangent[1]+side*64*radial[1]) for side in (-1, 1)]
-    stroke([shoulders[0], tip, shoulders[1]], thickness)
+    tip = (x+78*tangent[0], y+78*tangent[1])
+    shoulders = [(x-58*tangent[0]+side*91*radial[0], y-58*tangent[1]+side*91*radial[1]) for side in (-1, 1)]
+    draw.polygon([shoulders[0], tip, shoulders[1]], fill=255)
 
 halo = glyph.filter(ImageFilter.GaussianBlur(20)).point(lambda a: round(a*.24))
 image.paste((220, 222, 228, 255), (0, 0, size, size), ImageChops.multiply(halo, outer))

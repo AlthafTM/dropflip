@@ -1548,37 +1548,58 @@ fn document(
             let staging = tempfile::tempdir()?;
             let bundle = r.format.ends_with(".zip");
             let extension = r.format.trim_end_matches(".zip");
-            let rendered = staging.path().join(format!("document.{extension}"));
-            let output = if bundle { rendered.as_path() } else { out };
+            let pdf = extension == "pdf";
+            let rendered = staging.path().join(if pdf {
+                "document.typ".to_string()
+            } else {
+                format!("document.{extension}")
+            });
+            let output = if bundle || pdf {
+                rendered.as_path()
+            } else {
+                out
+            };
             let mut cmd = Command::new(pandoc);
             cmd.current_dir(staging.path());
             cmd.arg(&r.info.path)
-                .args(["--from", reader, "--standalone", "--output"])
+                .args([
+                    "--sandbox",
+                    "--fail-if-warnings",
+                    "--from",
+                    reader,
+                    "--standalone",
+                    "--output",
+                ])
                 .arg(output);
-            if bundle || extension == "html" {
+            if bundle || pdf {
                 cmd.args(["--extract-media", "media"]);
             }
             if extension == "html" {
                 cmd.arg("--embed-resources");
             }
-            if r.format == "pdf" {
-                cmd.arg("--pdf-engine").arg(e.typst.as_ref().unwrap());
-            } else {
-                cmd.args([
-                    "--to",
-                    match extension {
-                        "txt" => "plain",
-                        "md" => "gfm",
-                        "tex" => "latex",
-                        v => v,
-                    },
-                ]);
-            }
-            // Never run Lua filters or external filters from input metadata.
-            if let Some(parent) = r.info.path.parent() {
-                cmd.arg("--resource-path").arg(parent);
-            }
+            cmd.args([
+                "--to",
+                match extension {
+                    "pdf" => "typst",
+                    "txt" => "plain",
+                    "md" => "gfm",
+                    "tex" => "latex",
+                    v => v,
+                },
+            ]);
             run_process(&mut cmd, cancel, cb, None, "Converting document")?;
+            if pdf {
+                // The PDF engine needs its own boundary; Pandoc's sandbox does not cover it.
+                let mut render = Command::new(e.typst.as_ref().unwrap());
+                render
+                    .current_dir(staging.path())
+                    .arg("compile")
+                    .arg("--root")
+                    .arg(staging.path())
+                    .arg(&rendered)
+                    .arg(out);
+                run_process(&mut render, cancel, cb, None, "Rendering document")?;
+            }
             if bundle {
                 zip_directory(staging.path(), out, cancel)?;
             }
@@ -1829,7 +1850,7 @@ fn read_structured(path: &Path, extension: &str) -> Result<serde_json::Value> {
     let text = fs::read_to_string(path).context("This file is not UTF-8 text")?;
     Ok(match extension {
         "json" => serde_json::from_str(&text)?,
-        "yaml" | "yml" => serde_yaml::from_str(&text)?,
+        "yaml" | "yml" => serde_saphyr::from_str(&text)?,
         "toml" => serde_json::to_value(toml::from_str::<toml::Value>(&text)?)?,
         _ => bail!("Unsupported structured data"),
     })
@@ -1888,7 +1909,7 @@ fn data(r: &Request, out: &Path, cancel: Option<&AtomicBool>) -> Result<()> {
                 serde_json::to_string_pretty(&value)?
             }
         }
-        "yaml" => serde_yaml::to_string(&value)?,
+        "yaml" => serde_saphyr::to_string(&value)?,
         "toml" => toml::to_string_pretty(&value).context(
             "This data cannot be represented in TOML (for example, null values or a root array)",
         )?,
