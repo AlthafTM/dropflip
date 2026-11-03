@@ -1,4 +1,4 @@
-# Dropflip
+# Dropflip — Local File Converter & Compressor for Windows
 
 [![MIT license](https://img.shields.io/github/license/AlthafTM/dropflip?style=flat-square)](LICENSE)
 [![Windows x64](https://img.shields.io/badge/platform-Windows%20x64-555?style=flat-square)](docs/DEVELOPMENT.md#requirements)
@@ -11,7 +11,7 @@
 
 **Convert files locally from a corner of your screen.**
 
-Dropflip is a Windows desktop converter with a native Rust interface. Drag a file toward a drop area, choose a compatible output format, and confirm. It saves the result to Downloads or your chosen folder.
+Dropflip is a free, open-source file converter and compressor for Windows, built with a native Rust interface. Drag a file toward a drop area, choose a compatible output format, and confirm. It saves the result to Downloads or your chosen folder.
 
 [Download for Windows](https://github.com/AlthafTM/dropflip/releases/latest) · [Build from source](docs/DEVELOPMENT.md) · [Conversion behavior](CONVERSIONS.md)
 
